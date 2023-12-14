@@ -21,4 +21,15 @@ def generate_recommendations(sp, seed_track_id):
     # Generate song recommendations
     recommendations = sp.recommendations(seed_tracks=[seed_track_id], limit=5)
     return recommendations['tracks']
-```
+
+if __name__ == '__main__':
+    sp = authenticate_spotify()
+    user_tracks = get_user_tracks(sp)
+    for idx, item in enumerate(user_tracks):
+        track = item['track']
+        print(f"{idx + 1}. {track['name']} by {track['artists'][0]['name']}")
+
+    seed_track_id = input("Enter the ID of the track for recommendations: ")
+    recommendations = generate_recommendations(sp, seed_track_id)
+    for idx, track in enumerate(recommendations):
+        print(f"Recommendation {idx + 1}: {track['name']} by {track['artists'][0]['name']
